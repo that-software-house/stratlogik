@@ -3,10 +3,11 @@ import { Linkedin, Twitter, Mail } from 'lucide-react'
 
 const footerLinks = {
   services: [
-    { name: 'Strategy Consulting', href: '/services/strategy' },
-    { name: 'Digital Transformation', href: '/services/digital' },
-    { name: 'M&A Advisory', href: '/services/ma' },
-    { name: 'Operations Excellence', href: '/services/operations' },
+    { name: 'Strategy & Innovation', href: '/services/strategy-innovation' },
+    { name: 'Sales, Marketing & Customer Success', href: '/services/sales-marketing' },
+    { name: 'Digital Transformation & Technology', href: '/services/digital-transformation' },
+    { name: 'Data & Analytics', href: '/services/data-analytics' },
+    { name: 'People & Change', href: '/services/people-change' },
   ],
   industries: [
     { name: 'Private Equity', href: '/industries/private-equity' },

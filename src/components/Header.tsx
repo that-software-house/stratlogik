@@ -10,10 +10,11 @@ const navigation = {
   services: {
     title: 'Services',
     items: [
-      { name: 'Strategy Consulting', href: '/services/strategy', description: 'Define winning strategies for sustainable growth' },
-      { name: 'Digital Transformation', href: '/services/digital', description: 'Modernize operations with cutting-edge technology' },
-      { name: 'M&A Advisory', href: '/services/ma', description: 'End-to-end support for mergers and acquisitions' },
-      { name: 'Operations Excellence', href: '/services/operations', description: 'Optimize processes and drive efficiency' },
+      { name: 'Strategy & Innovation', href: '/services/strategy-innovation', description: 'Define winning strategies and drive innovation' },
+      { name: 'Sales, Marketing & Customer Success', href: '/services/sales-marketing', description: 'Accelerate revenue and customer growth' },
+      { name: 'Digital Transformation & Technology', href: '/services/digital-transformation', description: 'Modernize operations with cutting-edge technology' },
+      { name: 'Data & Analytics', href: '/services/data-analytics', description: 'Turn data into actionable insights' },
+      { name: 'People & Change', href: '/services/people-change', description: 'Transform culture and drive organizational change' },
     ],
   },
   industries: {
