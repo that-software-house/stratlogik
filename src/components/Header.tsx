@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -39,7 +38,7 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -82,32 +81,29 @@ export function Header() {
                 )}
               >
                 {navigation.services.title}
-                <ChevronDown className={cn('h-4 w-4 transition-transform', activeDropdown === 'services' && 'rotate-180')} />
+                <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', activeDropdown === 'services' && 'rotate-180')} />
               </button>
-              <AnimatePresence>
-                {activeDropdown === 'services' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 top-full w-80 pt-2"
-                  >
-                    <div className="rounded-xl bg-white p-2 shadow-xl ring-1 ring-dark-900/5">
-                      {navigation.services.items.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className="block rounded-lg p-3 transition-colors hover:bg-dark-50"
-                        >
-                          <div className="font-medium text-dark-900">{item.name}</div>
-                          <div className="mt-1 text-sm text-dark-500">{item.description}</div>
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
+              <div
+                className={cn(
+                  'absolute left-0 top-full w-80 pt-2 transition-all duration-200',
+                  activeDropdown === 'services'
+                    ? 'opacity-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 -translate-y-2 pointer-events-none'
                 )}
-              </AnimatePresence>
+              >
+                <div className="rounded-xl bg-white p-2 shadow-xl ring-1 ring-dark-900/5">
+                  {navigation.services.items.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block rounded-lg p-3 transition-colors hover:bg-dark-50"
+                    >
+                      <div className="font-medium text-dark-900">{item.name}</div>
+                      <div className="mt-1 text-sm text-dark-500">{item.description}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Industries Dropdown */}
@@ -123,32 +119,29 @@ export function Header() {
                 )}
               >
                 {navigation.industries.title}
-                <ChevronDown className={cn('h-4 w-4 transition-transform', activeDropdown === 'industries' && 'rotate-180')} />
+                <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', activeDropdown === 'industries' && 'rotate-180')} />
               </button>
-              <AnimatePresence>
-                {activeDropdown === 'industries' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 top-full w-80 pt-2"
-                  >
-                    <div className="rounded-xl bg-white p-2 shadow-xl ring-1 ring-dark-900/5">
-                      {navigation.industries.items.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className="block rounded-lg p-3 transition-colors hover:bg-dark-50"
-                        >
-                          <div className="font-medium text-dark-900">{item.name}</div>
-                          <div className="mt-1 text-sm text-dark-500">{item.description}</div>
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
+              <div
+                className={cn(
+                  'absolute left-0 top-full w-80 pt-2 transition-all duration-200',
+                  activeDropdown === 'industries'
+                    ? 'opacity-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 -translate-y-2 pointer-events-none'
                 )}
-              </AnimatePresence>
+              >
+                <div className="rounded-xl bg-white p-2 shadow-xl ring-1 ring-dark-900/5">
+                  {navigation.industries.items.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block rounded-lg p-3 transition-colors hover:bg-dark-50"
+                    >
+                      <div className="font-medium text-dark-900">{item.name}</div>
+                      <div className="mt-1 text-sm text-dark-500">{item.description}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Simple Links */}
@@ -202,69 +195,65 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t"
-          >
-            <div className="container-wide py-4 space-y-4">
-              <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-dark-400">Services</p>
-                {navigation.services.items.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block py-2 text-dark-600 hover:text-dark-900"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-dark-400">Industries</p>
-                {navigation.industries.items.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block py-2 text-dark-600 hover:text-dark-900"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="space-y-2 pt-2 border-t">
-                <Link
-                  href="/insights"
-                  className="block py-2 text-dark-600 hover:text-dark-900"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Insights
-                </Link>
-                <Link
-                  href="/about"
-                  className="block py-2 text-dark-600 hover:text-dark-900"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  About
-                </Link>
-              </div>
+      {/* Mobile Menu - CSS only */}
+      <div
+        className={cn(
+          'lg:hidden bg-white border-t overflow-hidden transition-all duration-300',
+          mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'
+        )}
+      >
+        <div className="container-wide py-4 space-y-4">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-dark-400">Services</p>
+            {navigation.services.items.map((item) => (
               <Link
-                href="/contact"
-                className="btn-primary w-full"
+                key={item.name}
+                href={item.href}
+                className="block py-2 text-dark-600 hover:text-dark-900"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Get in Touch
+                {item.name}
               </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-dark-400">Industries</p>
+            {navigation.industries.items.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="block py-2 text-dark-600 hover:text-dark-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+          <div className="space-y-2 pt-2 border-t">
+            <Link
+              href="/insights"
+              className="block py-2 text-dark-600 hover:text-dark-900"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Insights
+            </Link>
+            <Link
+              href="/about"
+              className="block py-2 text-dark-600 hover:text-dark-900"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About
+            </Link>
+          </div>
+          <Link
+            href="/contact"
+            className="btn-primary w-full"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Get in Touch
+          </Link>
+        </div>
+      </div>
     </header>
   )
 }

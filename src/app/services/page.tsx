@@ -1,13 +1,15 @@
-import { Metadata } from 'next'
 import { ServicesHero } from '@/components/services/ServicesHero'
 import { ServicesList } from '@/components/services/ServicesList'
 import { Approach } from '@/components/services/Approach'
 import { Cta } from '@/components/home/Cta'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Services | StratLogik',
-  description: 'Our comprehensive consulting services help organizations navigate complex challenges and unlock sustainable growth.',
-}
+  description:
+    'Our comprehensive consulting services help organizations navigate complex challenges and unlock sustainable growth.',
+  path: '/services',
+})
 
 export default function ServicesPage() {
   return (
