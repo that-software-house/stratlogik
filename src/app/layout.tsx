@@ -3,7 +3,6 @@ import { Inter, Outfit } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { MotionProvider } from '@/components/MotionProvider'
 import { siteConfig } from '@/lib/seo'
 
 const inter = Inter({
@@ -87,9 +86,7 @@ export default function RootLayout({
           }}
         />
         <Header />
-        <MotionProvider>
-          <main>{children}</main>
-        </MotionProvider>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
